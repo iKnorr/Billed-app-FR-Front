@@ -33,6 +33,8 @@ export default class NewBill {
       e.target.value = "";
 
       return;
+    } else {
+      e.target.setCustomValidity("");
     }
 
     const formData = new FormData();
