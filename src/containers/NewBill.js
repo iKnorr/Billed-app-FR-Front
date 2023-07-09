@@ -21,9 +21,20 @@ export default class NewBill {
     e.preventDefault();
     const file = this.document.querySelector(`input[data-testid="file"]`)
       .files[0];
-
     const filePath = e.target.value.split(/\\/g);
     const fileName = filePath[filePath.length - 1];
+
+    if (!/\.(jpg|jpeg|png)$/i.test(fileName)) {
+      console.error("Type de fichier invalide.");
+      e.target.setCustomValidity(
+        "Type de fichier invalide. Veuillez télécharger un fichier .jpg, .jpeg, ou .png."
+      );
+      e.target.reportValidity();
+      e.target.value = "";
+
+      return;
+    }
+
     const formData = new FormData();
     const email = JSON.parse(localStorage.getItem("user")).email;
     formData.append("file", file);
